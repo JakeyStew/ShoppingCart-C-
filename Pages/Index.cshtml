@@ -1,0 +1,115 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <div class="hero-text-box align-content-center">
+                <h1>Welcome to Shopping Kart</h1>
+                <h2>Where all your online needs are our priority.</h2>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center">Product List</h3>
+                <hr />
+            </div>
+        </div>
+        <!--    Products List  -->
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table">
+                    @foreach (var product in Model.Products)
+                    {
+                        <tr align="center">
+                            <td>@product.ItemName</td>
+                            <td><img src="~/images/@product.ItemPhoto" width="120" height="100" /></td>
+                            <td>
+                                @if (product.ItemSale == true)
+                                {
+                                    <span>&pound;@product.ItemPrice.ToString("#0.00")</span>
+                                    <span style="color: red;"> *@product.ItemSaleQuantity for &pound;@((product.ItemSalePrice*product.ItemSaleQuantity).ToString("#0.00"))</span>
+                                }
+                                else
+                                {
+                                    <span>&pound;@product.ItemPrice.ToString("#0.00")</span>
+                                }
+                            </td>
+                            <td>
+                                <a asp-page="basket" asp-page-handler="buynow" asp-route-id="@product.ID">Buy Now</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center">The Brand</h3>
+                <hr />
+            </div>
+        </div>
+        <!--    Product Desc 1  -->
+        <div class="row">
+            <div class="col-md-6 info-col">
+                <img class="info-imgs" src="~/images/Info/info_red.jpg" alt="Sweet shoes on balcony!" />
+            </div>
+            <div class="col-md-6 info-col">
+                <div class="info-content">
+                    <h4 class="text-center text-uppercase">Shoes</h4>
+                    <p class="info-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum iaculis odio, in suscipit lectus scelerisque ac. In ac justo consequat, elementum quam at, ultricies nibh. Donec volutpat tellus vel nisi tristique, nec iaculis metus faucibus. Aliquam consequat tortor ac diam pellentesque, vel rhoncus eros finibus. Vestibulum ac lacinia nisl. Donec ex urna, vulputate at metus ut, rutrum tempor orci. Aenean sit amet sagittis nibh. Cras sed nisl luctus, finibus tortor non, suscipit massa. Aliquam scelerisque blandit elit, sed finibus urna tincidunt et. Etiam vehicula a lectus sit amet interdum.
+                        <br />
+                        <br />
+                        Quisque eu pretium arcu, vel vulputate nibh. Ut condimentum purus non hendrerit vehicula. Nam euismod augue vel nisi iaculis, nec dignissim mauris dapibus. Donec laoreet lacus at vestibulum finibus. Mauris nec velit sit amet velit hendrerit convallis. Aliquam quam purus, tempus ut malesuada nec, scelerisque sed nulla. Ut ut blandit lorem. In lacinia elementum ligula vel ultrices.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--    Product Desc 2  -->
+        <div class="row">
+            <div class="col-md-6 info-col">
+                <div class="info-content">
+                    <h4 class="text-center text-uppercase">Adventure</h4>
+                    <p class="info-text">
+                        Vestibulum sed ullamcorper ipsum. Vivamus eget augue ut dui mattis viverra et at enim. Ut sit amet hendrerit erat. Quisque eu tellus quis risus ultricies auctor. Donec diam diam, pretium id dictum vel, pellentesque ut nisi. Vestibulum ultrices porttitor egestas. Suspendisse sed nisi mi. Curabitur sed dui ante. Integer sed pharetra orci. Cras molestie volutpat consequat. Aliquam sed turpis magna. Curabitur ultricies commodo nisl eget mattis. Fusce porttitor ultrices fringilla.
+                        <br />
+                        <br />
+                        Cras ligula mi, malesuada sit amet nunc nec, cursus imperdiet dolor. Nam mattis rutrum tellus ut accumsan. Ut a feugiat neque. Donec et sagittis massa. Donec sem urna, pretium ut enim sit amet, rutrum aliquet turpis. Fusce consectetur, ipsum vel pulvinar ultrices, mauris tellus cursus nunc, eget pellentesque erat velit eget augue. Phasellus vel suscipit felis. Suspendisse vel malesuada purus. Mauris et turpis quis nunc vestibulum feugiat.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 info-col">
+                <img class="info-imgs" src="~/images/Info/info_cliffside.jpg" alt="Sweet shoes on cliffside!" />
+            </div>
+        </div>
+        <!--    Product Desc 3  -->
+        <div class="row">
+            <div class="col-md-6 info-col">
+                <img class="info-imgs" src="~/images/Info/info_street.jpg" alt="Sweet shoes on street!" />
+            </div>
+            <div class="col-md-6 info-col">
+                <div class="info-content">
+                    <h4 class="text-center text-uppercase">Urban</h4>
+                    <p class="info-text">
+                        Sed facilisis viverra neque non viverra. Suspendisse ullamcorper ac ante et porttitor. Mauris semper eros ligula, a posuere leo cursus at. Nam elementum et nisi non ullamcorper. Donec vitae magna eleifend, venenatis odio ac, dapibus tellus. Phasellus vehicula a risus bibendum ornare. Maecenas imperdiet suscipit odio, non aliquet metus eleifend ut. Nulla dignissim sem sit amet quam efficitur auctor a et lorem. Morbi elementum erat sit amet ipsum auctor, ac malesuada ex ornare.
+                        <br />
+                        <br />
+                        Aliquam consequat justo ac facilisis efficitur. Nunc maximus ac ante eu lobortis. Donec convallis pulvinar orci, hendrerit scelerisque nulla accumsan et. Maecenas aliquam ultrices nisl, at ultrices ipsum maximus id. Nullam dictum id nisl a rhoncus. Aenean semper rutrum est, at gravida lorem facilisis quis. Nullam vestibulum in ex quis feugiat.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

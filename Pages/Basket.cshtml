@@ -1,0 +1,79 @@
+﻿@page
+@model ShoppingKart.Pages.BasketModel
+@{
+    ViewData["Title"] = "Basket";
+}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <h2>Order Summary</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post" asp-page="basket" asp-page-handler="update">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr align="center">
+                                <th>Photo</th>
+                                <th>Item</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Remove</th>
+                                <th>Sub Total</th>
+                            </tr>
+                            @if (Model.Basket != null)
+                            {
+                                @foreach (var item in Model.Basket)
+                                {
+                                    <tr align="center">
+                                        <td><img src="~/images/@item.Product.ItemPhoto" width="120" height="100" /></td>
+                                        <td>@item.Product.ItemName</td>
+                                        <td>&pound;@item.Product.OriginalItemPrice.ToString("#0.00")</td>
+                                        <td><input type="number" name="quantities" value="@item.ItemQuantity" min="1" style="width: 100%;"/></td>
+                                        <td align="center">
+                                            <a asp-page="basket" asp-page-handler="delete" asp-route-id="@item.Product.ID">&#10005</a>
+                                        </td>
+                                        @if (item.Product.ItemSale && (item.ItemQuantity >= item.Product.ItemSaleQuantity))
+                                        {
+                                            <td>
+                                                &pound;@((item.Product.ItemSalePrice * item.Product.ItemSaleQuantity + item.Product.OriginalItemPrice * (item.ItemQuantity-item.Product.ItemSaleQuantity)).ToString("#0.00"))
+                                                <span style="text-decoration:line-through; color:red;">&pound;@((item.Product.OriginalItemPrice * item.ItemQuantity).ToString("#0.00"))</span>
+                                            </td>
+                                        } else
+                                        {
+                                            <td>
+                                                &pound;@((item.Product.ItemPrice * item.ItemQuantity).ToString("#0.00"))
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                        <tr>
+                            @if (Model.Basket != null)
+                            {
+                                <td><input type="submit" value="Update" class="btn btn-dark" /></td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td colspan="1">Total:</td>
+                            <td align="center"><span style="text-decoration:underline;">&pound;@Model.Total.ToString("#0.00")</span></td>
+                        </tr>
+                        </table>
+                    </div>
+                </form>
+                <div class="row">
+                    @if (Model.Basket != null)
+                    {
+                        <a class="ml-auto" style="padding-right: 15px" asp-page="index">Continue Shopping</a>
+                    }
+                </div>
+                </div>
+            </div>
+        </div>
+</section>
